@@ -288,7 +288,7 @@ jobs:
             bsdtar -xOf "$arch" "$file_in_arch" > "$dest"/"$(basename "$file_in_arch")"
           }
 
-          mkdir -p ./packages/nuget/runtimes/{linux-x64,linux-arm64,osx,win-x86,win-x64}/native
+          mkdir -p ./packages/nuget/runtimes/{linux-x64,linux-arm64,osx,win-x86,win-x64,win-arm64}/native
 
           extract_file ./artifacts/libddwaf-x86_64-linux-musl/libddwaf-*-x86_64-linux-musl*.tar.gz \
             '/libddwaf\.so$' ./packages/nuget/runtimes/linux-x64/native
@@ -298,7 +298,8 @@ jobs:
             '/ddwaf\.dll$' ./packages/nuget/runtimes/win-x86/native
           extract_file ./artifacts/libddwaf-windows-x64/libddwaf-*-windows-x64*.tar.gz \
             '/ddwaf\.dll$' ./packages/nuget/runtimes/win-x64/native
-
+          extract_file ./artifacts/libddwaf-windows-ARM64/libddwaf-*-windows-arm64*.tar.gz \
+           '/ddwaf\.dll$' ./packages/nuget/runtimes/win-arm64/native
           extract_file ./artifacts/libddwaf-macos-universal/libddwaf-*-darwin-universal*.tar.gz \
             '/libddwaf\.dylib$' ./packages/nuget/runtimes/osx/native
 
