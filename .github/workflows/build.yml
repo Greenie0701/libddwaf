@@ -31,8 +31,14 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           submodules: recursive
-      - name: Set MSVC for Windows  
+      - name: Set MSVC for Windows(32/64-bit)
+        uses: ilammy/msvc-dev-cmd@v1
+        if: matrix.os == 'windows-2022'
+      - name: Set MSVC for Windows(ARM64)
         uses: microsoft/setup-msbuild@v2
+        if: matrix.os == 'windows-11-arm'
+        with:
+          msbuild-architecture: arm64
       - name: Create Directories
         run: cmake -E make_directory ${{ github.workspace }}/build ${{ github.workspace }}/packages
       - name: Generating Build Scripts
