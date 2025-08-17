@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ woa ]
     tags:
       - "*"
   pull_request:
@@ -16,13 +16,17 @@ concurrency:
   cancel-in-progress: true
 jobs:
   windows-builds:
-    runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
-        arch:
-          - Win32
-          - x64
+        include:
+          - os: windows-2022
+            arch: Win32
+          - os: windows-2022
+            arch: x64
+          - os: windows-11-arm
+            arch: ARM64
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
